@@ -2,12 +2,26 @@ package com.zaseki;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ZasekiController {
+
+  @Autowired
+  memberRepository repository;
+
+  @RequestMapping("/")
+  @ResponseBody
+  public ArrayList<Member> home() {
+    ArrayList<Member> memberList = makeMemberList();
+
+    return memberList;
+  }
+
   @RequestMapping("/{furigana}")
   public ArrayList<Member> index(@PathVariable String furigana) {
     ArrayList<Member> memberList = makeMemberList();
@@ -38,15 +52,11 @@ public class ZasekiController {
 
   private ArrayList<Member> makeMemberList() {
     ArrayList<Member> memberList = new ArrayList<Member>();
+    Iterable<Member> list = repository.findAll();
 
-    memberList.add(new Member(0, "青木A", "あおき", "ITS", "1F東", "1111"));
-    memberList.add(new Member(1, "青木B", "あおき", "ETEC", "2F南", "1111"));
-    memberList.add(new Member(2, "青木C", "あおき", "ITS", "3F西", "2222"));
-    memberList.add(new Member(3, "青木D", "あおき", "ETEC", "4F北", "2222"));
-    memberList.add(new Member(4, "三浦A", "みうら", "ITS", "5F東", "3333"));
-    memberList.add(new Member(5, "三浦B", "みうら", "金融", "6F西", "4444"));
-    memberList.add(new Member(6, "三浦C", "みうら", "ITS", "7北", "5555"));
-    memberList.add(new Member(7, "三浦D", "みうら", "金融", "8F東", "6666"));
+    for (Member zaseki : list) {
+      memberList.add(zaseki);
+    }
 
     return memberList;
   }
