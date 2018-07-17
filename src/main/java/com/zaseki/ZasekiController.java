@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ZasekiController {
 
   @Autowired
-  memberRepository repository;
+  MemberRepository repository;
 
   @RequestMapping("/")
   @ResponseBody
