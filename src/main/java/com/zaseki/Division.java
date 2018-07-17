@@ -1,6 +1,6 @@
 package com.zaseki;
 
-public enum Division {
+enum Division {
   ITS("its"), ETEC("etec"), 金融("fin"), 管理部("adm"), 医療("med"), 未来企画室("fpo"), アジャイル("ag");
 
   final String keyWord;
@@ -9,7 +9,7 @@ public enum Division {
     this.keyWord = keyWord;
   }
   
-  public static Division from(String string) {
+  protected static Division from(String string) {
     for (Division division : Division.values()) {
       if (string.equals(division.keyWord)) {
         return division;
