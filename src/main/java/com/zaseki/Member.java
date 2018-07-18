@@ -13,22 +13,22 @@ public class Member {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  protected int id;
+  private int id;
 
   @Column(name = "name")
-  protected String name;
+  private String name;
 
   @Column(name = "furigana")
-  protected String furigana;
+  private String furigana;
 
   @Column(name = "division")
-  protected String division;
+  private String division;
 
   @Column(name = "floor")
-  protected String floor;
+  private String floor;
 
   @Column(name = "extensionnumber")
-  protected String extensionNumber;
+  private String extensionNumber;
 
   public Member() {
     super();

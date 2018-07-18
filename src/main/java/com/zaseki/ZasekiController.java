@@ -1,6 +1,7 @@
 package com.zaseki;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,20 +13,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class ZasekiController {
 
   @Autowired
-  memberRepository repository;
+  MemberRepository repository;
 
   @RequestMapping("/")
   @ResponseBody
-  public ArrayList<Member> home() {
-    ArrayList<Member> memberList = makeMemberList();
+  public List<Member> home() {
+    List<Member> memberList = makeMemberList();
 
     return memberList;
   }
 
   @RequestMapping("/{furigana}")
-  public ArrayList<Member> index(@PathVariable String furigana) {
-    ArrayList<Member> memberList = makeMemberList();
-    ArrayList<Member> qualifiedMember = new ArrayList<Member>();
+  public List<Member> index(@PathVariable String furigana) {
+    List<Member> memberList = makeMemberList();
+    List<Member> qualifiedMember = new ArrayList<Member>();
 
     for (Member member : memberList) {
       if (member.getFurigana().equals(furigana)) {
@@ -37,9 +38,9 @@ public class ZasekiController {
   }
 
   @RequestMapping("/{furigana}/{keyWord}")
-  public ArrayList<Member> index(@PathVariable String furigana, @PathVariable String keyWord) {
-    ArrayList<Member> memberList = makeMemberList();
-    ArrayList<Member> qualifiedMember = new ArrayList<Member>();
+  public List<Member> index(@PathVariable String furigana, @PathVariable String keyWord) {
+    List<Member> memberList = makeMemberList();
+    List<Member> qualifiedMember = new ArrayList<Member>();
 
     for (Member member : memberList) {
       if (member.getFurigana().equals(furigana) && member.getDivision().equals(Division.from(keyWord).toString())) {
@@ -50,8 +51,8 @@ public class ZasekiController {
     return qualifiedMember;
   }
 
-  private ArrayList<Member> makeMemberList() {
-    ArrayList<Member> memberList = new ArrayList<Member>();
+  private List<Member> makeMemberList() {
+    List<Member> memberList = new ArrayList<Member>();
     Iterable<Member> list = repository.findAll();
 
     for (Member zaseki : list) {
