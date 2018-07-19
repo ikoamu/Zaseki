@@ -60,8 +60,6 @@ public class ZasekiController {
           qualifiedMemberList.add(member);
         }
       }
-
-      return qualifiedMemberList;
     }
 
     return qualifiedMemberList;
