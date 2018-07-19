@@ -25,8 +25,7 @@ public class ZasekiController {
   }
 
   @RequestMapping(value = "/member", method = RequestMethod.GET)
-  public List<Member> member(@RequestParam(name = "furigana") String furigana,
-      @RequestParam(name = "div", defaultValue = "all") String div) {
+  public List<Member> member(@RequestParam String furigana, @RequestParam(defaultValue = "all") String div) {
 
     List<Member> qualifiedMemberList = makeQualifiedMemberList(furigana, div);
 
