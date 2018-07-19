@@ -25,7 +25,8 @@ public class ZasekiController {
   }
 
   @RequestMapping(value = "/member", method = RequestMethod.GET)
-  public List<Member> member(@RequestParam String furigana, @RequestParam(defaultValue = "all") String div) {
+  public List<Member> member(@RequestParam(defaultValue = "all") String furigana,
+      @RequestParam(defaultValue = "all") String div) {
 
     List<Member> qualifiedMemberList = makeQualifiedMemberList(furigana, div);
 
@@ -47,20 +48,22 @@ public class ZasekiController {
     List<Member> memberList = makeMemberList();
     List<Member> qualifiedMemberList = new ArrayList<Member>();
 
-    if (div.equals("all")) {
-      for (Member member : memberList) {
-        if (member.getFurigana().equals(furigana)) {
-          qualifiedMemberList.add(member);
-        }
-      }
-    } else {
-      for (Member member : memberList) {
-        if (member.getFurigana().equals(furigana) && member.getDivision().equals(Division.from(div).toString())) {
-          qualifiedMemberList.add(member);
-        }
+    for (Member member : memberList) {
+      if (isValidMember(member, furigana, div)) {
+        qualifiedMemberList.add(member);
       }
     }
 
     return qualifiedMemberList;
+  }
+
+  private boolean isValidMember(Member member, String yomigana, String div) {
+    if (yomigana.equals("all") || yomigana.equals(member.getFurigana())) {
+      if (div.equals("all") || Division.from(div).toString().equals(member.getDivision())) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }
