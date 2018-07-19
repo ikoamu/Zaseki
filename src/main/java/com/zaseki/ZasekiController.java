@@ -44,11 +44,11 @@ public class ZasekiController {
     return memberList;
   }
 
-  private List<Member> makeQualifiedMemberList(String furigana, String keyWord) {
+  private List<Member> makeQualifiedMemberList(String furigana, String div) {
     List<Member> memberList = makeMemberList();
     List<Member> qualifiedMemberList = new ArrayList<Member>();
 
-    if (keyWord.equals("all")) {
+    if (div.equals("all")) {
       for (Member member : memberList) {
         if (member.getFurigana().equals(furigana)) {
           qualifiedMemberList.add(member);
@@ -56,7 +56,7 @@ public class ZasekiController {
       }
     } else {
       for (Member member : memberList) {
-        if (member.getFurigana().equals(furigana) && member.getDivision().equals(Division.from(keyWord).toString())) {
+        if (member.getFurigana().equals(furigana) && member.getDivision().equals(Division.from(div).toString())) {
           qualifiedMemberList.add(member);
         }
       }
