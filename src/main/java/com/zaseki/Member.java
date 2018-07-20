@@ -92,11 +92,11 @@ public class Member {
     this.extensionNumber = extensionNumber;
   }
 
-  protected boolean furiganaIs(String furigana) {
+  public boolean furiganaIs(String furigana) {
     return this.furigana.equals(furigana);
   }
 
-  protected boolean divisionIs(String div) {
+  public boolean divisionIs(String div) {
     return this.division.equals(Division.from(div).name());
   }
 }
