@@ -47,6 +47,6 @@ public class ZasekiController {
   }
 
   private boolean checkFurigana(Member member, String furigana) {
-    return (furigana == null || furigana.equals(member.getFurigana()));
+    return furigana == null || furigana.equals(member.getFurigana());
   }
 }
