@@ -34,14 +34,7 @@ public class ZasekiController {
   }
 
   private List<Member> makeMemberList() {
-    List<Member> memberList = new ArrayList<Member>();
-    Iterable<Member> list = repository.findAll();
-
-    for (Member zaseki : list) {
-      memberList.add(zaseki);
-    }
-
-    return memberList;
+    return repository.findAll();
   }
 
   private List<Member> makeQualifiedMemberList(String furigana, String div) {
