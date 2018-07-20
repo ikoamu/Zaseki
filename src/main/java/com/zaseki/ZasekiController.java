@@ -38,7 +38,9 @@ public class ZasekiController {
   }
 
   private List<Member> makeQualifiedMemberList(String furigana, String div) {
-    return makeMemberList().stream().filter(m -> m.hasValidFurigana(furigana)).filter(m -> m.hasValidDivision(div))
+    return makeMemberList().stream()
+        .filter(m -> furigana == null || m.furiganaIs(furigana))
+        .filter(m -> div == null || m.divisionIs(div))
         .collect(Collectors.toList());
   }
 }
