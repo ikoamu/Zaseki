@@ -28,7 +28,7 @@ public class ZasekiController {
   public List<Member> member(@RequestParam(required = false) String furigana,
       @RequestParam(required = false) String div) {
 
-    List<Member> qualifiedMemberList = makeQualifiedMemberList(furigana, div);
+    List<Member> qualifiedMemberList = findQualifiedMembers(furigana, div);
 
     return qualifiedMemberList;
   }
@@ -37,7 +37,7 @@ public class ZasekiController {
     return repository.findAll();
   }
 
-  private List<Member> makeQualifiedMemberList(String furigana, String div) {
+  private List<Member> findQualifiedMembers(String furigana, String div) {
     return findAllMembers().stream()
         .filter(m -> furigana == null || m.furiganaIs(furigana))
         .filter(m -> div == null || m.divisionIs(div))
