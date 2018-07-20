@@ -43,6 +43,6 @@ public class ZasekiController {
 
   private boolean isValidMember(Member member, String yomigana, String div) {
     return (yomigana == null || yomigana.equals(member.getFurigana()))
-        && (div == null || Division.from(div).toString().equals(member.getDivision()));
+        && (div == null || Division.from(div).name().equals(member.getDivision()));
   }
 }
