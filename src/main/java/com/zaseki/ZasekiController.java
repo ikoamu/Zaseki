@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +24,7 @@ public class ZasekiController {
     return memberList;
   }
 
-  @RequestMapping(value = "/member", method = RequestMethod.GET)
+  @GetMapping(value = "member")
   public List<Member> member(@RequestParam(defaultValue = "all") String furigana,
       @RequestParam(defaultValue = "all") String div) {
 
