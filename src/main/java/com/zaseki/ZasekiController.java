@@ -19,7 +19,7 @@ public class ZasekiController {
   @RequestMapping("/")
   @ResponseBody
   public List<Member> home() {
-    List<Member> memberList = makeMemberList();
+    List<Member> memberList = findAllMembers();
 
     return memberList;
   }
@@ -33,12 +33,12 @@ public class ZasekiController {
     return qualifiedMemberList;
   }
 
-  private List<Member> makeMemberList() {
+  private List<Member> findAllMembers() {
     return repository.findAll();
   }
 
   private List<Member> makeQualifiedMemberList(String furigana, String div) {
-    return makeMemberList().stream()
+    return findAllMembers().stream()
         .filter(m -> furigana == null || m.furiganaIs(furigana))
         .filter(m -> div == null || m.divisionIs(div))
         .collect(Collectors.toList());
