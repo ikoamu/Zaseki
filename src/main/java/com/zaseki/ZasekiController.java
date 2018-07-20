@@ -2,6 +2,7 @@ package com.zaseki;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,16 +39,7 @@ public class ZasekiController {
   }
 
   private List<Member> makeQualifiedMemberList(String furigana, String div) {
-    List<Member> memberList = makeMemberList();
-    List<Member> qualifiedMemberList = new ArrayList<Member>();
-
-    for (Member member : memberList) {
-      if (isValidMember(member, furigana, div)) {
-        qualifiedMemberList.add(member);
-      }
-    }
-
-    return qualifiedMemberList;
+    return  makeMemberList().stream().filter(m -> isValidMember(m,furigana,div)).collect(Collectors.toList());   
   }
 
   private boolean isValidMember(Member member, String yomigana, String div) {
