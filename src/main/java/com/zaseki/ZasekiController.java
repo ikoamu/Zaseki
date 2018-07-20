@@ -38,11 +38,15 @@ public class ZasekiController {
   }
 
   private List<Member> makeQualifiedMemberList(String furigana, String div) {
-    return makeMemberList().stream().filter(m -> isValidMember(m, furigana, div)).collect(Collectors.toList());
+    return makeMemberList().stream().filter(m -> checkFurigana(m, furigana)).filter(m -> checkDivision(m, div))
+        .collect(Collectors.toList());
   }
 
-  private boolean isValidMember(Member member, String yomigana, String div) {
-    return (yomigana == null || yomigana.equals(member.getFurigana()))
-        && (div == null || Division.from(div).name().equals(member.getDivision()));
+  private boolean checkDivision(Member member, String div) {
+    return div == null || Division.from(div).name().equals(member.getDivision());
+  }
+
+  private boolean checkFurigana(Member member, String furigana) {
+    return (furigana == null || furigana.equals(member.getFurigana()));
   }
 }
