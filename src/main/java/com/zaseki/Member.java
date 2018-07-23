@@ -92,4 +92,11 @@ public class Member {
     this.extensionNumber = extensionNumber;
   }
 
+  public boolean furiganaIs(String furigana) {
+    return this.furigana.equals(furigana);
+  }
+
+  public boolean divisionIs(String div) {
+    return this.division.equals(Division.from(div).name());
+  }
 }

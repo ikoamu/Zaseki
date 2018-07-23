@@ -1,11 +1,12 @@
 package com.zaseki;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,47 +19,28 @@ public class ZasekiController {
   @RequestMapping("/")
   @ResponseBody
   public List<Member> home() {
-    List<Member> memberList = makeMemberList();
+    List<Member> memberList = findAllMembers();
 
     return memberList;
   }
 
-  @RequestMapping("/{furigana}")
-  public List<Member> index(@PathVariable String furigana) {
-    List<Member> memberList = makeMemberList();
-    List<Member> qualifiedMember = new ArrayList<Member>();
+  @GetMapping(value = "member")
+  public List<Member> member(@RequestParam(required = false) String furigana,
+      @RequestParam(required = false) String div) {
 
-    for (Member member : memberList) {
-      if (member.getFurigana().equals(furigana)) {
-        qualifiedMember.add(member);
-      }
-    }
+    List<Member> qualifiedMemberList = findQualifiedMembers(furigana, div);
 
-    return qualifiedMember;
+    return qualifiedMemberList;
   }
 
-  @RequestMapping("/{furigana}/{keyWord}")
-  public List<Member> index(@PathVariable String furigana, @PathVariable String keyWord) {
-    List<Member> memberList = makeMemberList();
-    List<Member> qualifiedMember = new ArrayList<Member>();
-
-    for (Member member : memberList) {
-      if (member.getFurigana().equals(furigana) && member.getDivision().equals(Division.from(keyWord).toString())) {
-        qualifiedMember.add(member);
-      }
-    }
-
-    return qualifiedMember;
+  private List<Member> findAllMembers() {
+    return repository.findAll();
   }
 
-  private List<Member> makeMemberList() {
-    List<Member> memberList = new ArrayList<Member>();
-    Iterable<Member> list = repository.findAll();
-
-    for (Member zaseki : list) {
-      memberList.add(zaseki);
-    }
-
-    return memberList;
+  private List<Member> findQualifiedMembers(String furigana, String div) {
+    return findAllMembers().stream()
+        .filter(m -> furigana == null || m.furiganaIs(furigana))
+        .filter(m -> div == null || m.divisionIs(div))
+        .collect(Collectors.toList());
   }
 }
