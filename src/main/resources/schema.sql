@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS dummymember (
+CREATE TABLE IF NOT EXISTS member (
   id serial PRIMARY KEY
 , name varchar(20) NOT NULL
 , furigana varchar(20) NOT NULL

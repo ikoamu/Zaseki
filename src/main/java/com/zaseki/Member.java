@@ -8,8 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-// TODO: テストが終わったらmemberに変更する
-@Table(name = "dummymember")
+@Table(name = "member")
 public class Member {
 
   @Id

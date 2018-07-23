@@ -1,6 +1,6 @@
-DELETE FROM dummymember;
+DELETE FROM member;
 
-INSERT INTO dummymember (
+INSERT INTO member (
   name
 , furigana
 , division
