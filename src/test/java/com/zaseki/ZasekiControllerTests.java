@@ -22,6 +22,24 @@ public class ZasekiControllerTests {
 
   @Test
   public void test() throws Exception {
-    mvc.perform(get("/member")).andExpect(status().isOk());
+    mvc
+    .perform(get("/member"))
+    .andExpect(status().isOk());
+    
+    mvc
+    .perform(get("/member")
+        .param("furigana", "ふりがな")
+        .param("div", "division"))
+    .andExpect(status().isOk());
+    
+    mvc
+    .perform(get("/member")
+        .param("furigana", "ふりがな"))
+    .andExpect(status().isOk());
+    
+    mvc
+    .perform(get("/member")
+        .param("div", "division"))
+    .andExpect(status().isOk());
   }
 }
