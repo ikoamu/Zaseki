@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,6 +40,11 @@ public class ZasekiController {
   @PostMapping(value = "member", consumes = MediaType.APPLICATION_JSON_VALUE)
   public void postMember(@RequestBody Member member) {
     repository.save(member);
+  }
+  
+  @DeleteMapping(value = "member")
+  public void deleteMember(@RequestParam Integer id) {
+    repository.deleteById(id);
   }
 
   private List<Member> findAllMembers() {
