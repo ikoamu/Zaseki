@@ -21,25 +21,22 @@ public class ZasekiControllerTests {
   private MemberRepository repository;
 
   @Test
-  public void test() throws Exception {
-    mvc
-    .perform(get("/member"))
-    .andExpect(status().isOk());
-    
-    mvc
-    .perform(get("/member")
-        .param("furigana", "ふりがな")
-        .param("div", "division"))
-    .andExpect(status().isOk());
-    
-    mvc
-    .perform(get("/member")
-        .param("furigana", "ふりがな"))
-    .andExpect(status().isOk());
-    
-    mvc
-    .perform(get("/member")
-        .param("div", "division"))
-    .andExpect(status().isOk());
+  public void memberにGETリクエストすると200OKが返される() throws Exception {
+    mvc.perform(get("/member")).andExpect(status().isOk());
+  }
+
+  @Test
+  public void memberにパラメータfuriganaをつけてGETリクエストすると200OKが返される() throws Exception {
+    mvc.perform(get("/member").param("furigana", "ふりがな")).andExpect(status().isOk());
+  }
+
+  @Test
+  public void memberにパラメータdivをつけてGETリクエストすると200OKが返される() throws Exception {
+    mvc.perform(get("/member").param("div", "division")).andExpect(status().isOk());
+  }
+
+  @Test
+  public void memberにfuriganaとdivをつけてGETリクエストすると200OKが返される() throws Exception {
+    mvc.perform(get("/member").param("furigana", "ふりがな").param("div", "division")).andExpect(status().isOk());
   }
 }
