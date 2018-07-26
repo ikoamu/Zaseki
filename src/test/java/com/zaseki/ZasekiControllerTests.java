@@ -26,13 +26,6 @@ public class ZasekiControllerTests {
   @MockBean
   private MemberRepository repository;
   
-  @Before
-  public void setup() {
-    List<Member> memberList = new ArrayList<Member>();
-    Member member = new Member(1,"name","furigana","division","floor","extensionNumber");
-    memberList.add(member);
-  }
-  
   @Test
   public void memberにGETリクエストすると200OKとMemberのリストが返される() throws Exception {
     List<Member> memberList = new ArrayList<Member>();
@@ -54,6 +47,8 @@ public class ZasekiControllerTests {
   @Test
   public void memberにパラメータfuriganaをつけてGETリクエストすると200OKが返される() throws Exception {
     mvc.perform(get("/member").param("furigana", "ふりがな")).andExpect(status().isOk());
+    
+    
   }
 
   @Test
