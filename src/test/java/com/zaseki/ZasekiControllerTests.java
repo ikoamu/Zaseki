@@ -84,7 +84,25 @@ public class ZasekiControllerTests {
   }
 
   @Test
-  public void memberにfuriganaとdivをつけてGETリクエストすると200OKが返される() throws Exception {
-    mvc.perform(get("/member").param("furigana", "ふりがな").param("div", "division")).andExpect(status().isOk());
+  public void memberにfuriganaとdivをつけてGETリクエストすると該当するMemberのリストと200OKが返される() throws Exception {
+    List<Member> memberList = new ArrayList<Member>();
+    Member member1 = new Member(1, "name1", "furigana1", "ETEC", "floor1", "extensionNumber1"); //検索で該当しないメンバ
+    Member member2 = new Member(2, "name2", "furigana1", "ITS", "floor2", "extensionNumber2"); //該当するメンバ
+    Member member3 = new Member(1, "name1", "furigana2", "ITS", "floor3", "extensionNumber3"); //該当しないメンバ
+    memberList.add(member1);
+    memberList.add(member2);
+    memberList.add(member3);
+    
+    when(repository.findAll()).thenReturn(memberList);
+    mvc.perform(get("/member").param("furigana", "furigana1").param("div", "its"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").isArray())
+        .andExpect(jsonPath("$",hasSize(1)))
+        .andExpect(jsonPath("$[0].id").value(member2.getId()))
+        .andExpect(jsonPath("$[0].name").value(member2.getName()))
+        .andExpect(jsonPath("$[0].furigana").value(member2.getFurigana()))
+        .andExpect(jsonPath("$[0].division").value(member2.getDivision()))
+        .andExpect(jsonPath("$[0].floor").value(member2.getFloor()))
+        .andExpect(jsonPath("$[0].extensionNumber").value(member2.getExtensionNumber()));
   }
 }
