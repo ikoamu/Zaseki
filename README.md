@@ -20,3 +20,4 @@
 3. `su - postgres`でユーザを切り替える
 4. `psql`でログイン
 5. `CREATE DATABASE zaseki;`でデータベースzasekiを作成
+6. src/main/resourcesの中にあるapplication.propertiesに設定を記入  `spring.datasource.username`にPostgreSQLのユーザ名  `spring.datasource.password`にPostgreSQLのパスワード
