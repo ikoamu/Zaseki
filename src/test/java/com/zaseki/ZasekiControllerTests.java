@@ -1,8 +1,11 @@
 package com.zaseki;
 
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -113,5 +116,14 @@ public class ZasekiControllerTests {
         .andExpect(jsonPath("$[0].extensionNumber").value(member2.getExtensionNumber()));
     
     verify(repository).findAll();
+  }
+
+  @Test
+  public void memberにidをつけてDELETEリクエストすると200OKが返される() throws Exception {
+    doNothing().when(repository).deleteById(1);
+    mvc.perform(delete("/member").param("id", "1"))
+        .andExpect(status().isOk());
+    
+    verify(repository, times(1)).deleteById(1);
   }
 }
