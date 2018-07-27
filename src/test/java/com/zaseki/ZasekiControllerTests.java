@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -18,8 +19,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest
@@ -29,6 +33,8 @@ public class ZasekiControllerTests {
 
   @MockBean
   private MemberRepository repository;
+
+  private ObjectMapper mapper = new ObjectMapper();
 
   @Test
   public void memberにGETリクエストすると200OKとMemberのリストが返される() throws Exception {
@@ -125,5 +131,16 @@ public class ZasekiControllerTests {
         .andExpect(status().isOk());
     
     verify(repository, times(1)).deleteById(1);
+  }
+  
+  @Test
+  public void POSTリクエストすると200OKが返される() throws Exception {   
+    Member member = new Member(1, "name", "furigana", "division", "floor", "extensionNumber");
+    
+    when(repository.save(member)).thenReturn(member);
+    mvc.perform(post("/member").contentType(MediaType.APPLICATION_JSON)
+        .content(mapper.writeValueAsString(member))).andExpect(status().isOk());
+    
+    //verify(repository).save(member);
   }
 }
