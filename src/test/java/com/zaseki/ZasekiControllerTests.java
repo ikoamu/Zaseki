@@ -45,6 +45,8 @@ public class ZasekiControllerTests {
         .andExpect(jsonPath("$[0].division").value(member.getDivision()))
         .andExpect(jsonPath("$[0].floor").value(member.getFloor()))
         .andExpect(jsonPath("$[0].extensionNumber").value(member.getExtensionNumber()));
+    
+    verify(repository).findAll();
   }
 
   @Test
@@ -65,6 +67,8 @@ public class ZasekiControllerTests {
         .andExpect(jsonPath("$[0].division").value(member2.getDivision()))
         .andExpect(jsonPath("$[0].floor").value(member2.getFloor()))
         .andExpect(jsonPath("$[0].extensionNumber").value(member2.getExtensionNumber()));
+    
+    verify(repository).findAll();
   }
 
   @Test
@@ -85,6 +89,8 @@ public class ZasekiControllerTests {
         .andExpect(jsonPath("$[0].division").value(member2.getDivision()))
         .andExpect(jsonPath("$[0].floor").value(member2.getFloor()))
         .andExpect(jsonPath("$[0].extensionNumber").value(member2.getExtensionNumber()));
+    
+    verify(repository).findAll();
   }
 
   @Test
@@ -108,6 +114,8 @@ public class ZasekiControllerTests {
         .andExpect(jsonPath("$[0].division").value(member2.getDivision()))
         .andExpect(jsonPath("$[0].floor").value(member2.getFloor()))
         .andExpect(jsonPath("$[0].extensionNumber").value(member2.getExtensionNumber()));
+    
+    verify(repository).findAll();
   }
 
   @Test
