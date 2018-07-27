@@ -1,5 +1,8 @@
 package com.zaseki;
 
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -109,12 +112,10 @@ public class ZasekiControllerTests {
 
   @Test
   public void memberにidをつけてDELETEリクエストすると200OKが返される() throws Exception {
-    List<Member> memberList = new ArrayList<Member>();
-    Member member = new Member(1, "name", "furigana", "division", "floor", "extensionNumber");
-    memberList.add(member);
-
-    when(repository.findAll()).thenReturn(memberList);
+    doNothing().when(repository).deleteById(1);
     mvc.perform(delete("/member").param("id", "1"))
         .andExpect(status().isOk());
+    
+    verify(repository, times(1)).deleteById(1);
   }
 }
