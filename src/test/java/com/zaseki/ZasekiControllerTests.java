@@ -139,8 +139,9 @@ public class ZasekiControllerTests {
     
     when(repository.save(member)).thenReturn(member);
     mvc.perform(post("/member").contentType(MediaType.APPLICATION_JSON)
-        .content(mapper.writeValueAsString(member))).andExpect(status().isOk());
-    
-    //verify(repository).save(member);
+       .content(mapper.writeValueAsString(member)))
+       .andExpect(status().isOk());
+
+    verify(repository).save(member);
   }
 }
