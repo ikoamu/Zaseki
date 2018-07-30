@@ -2,7 +2,7 @@ DELETE FROM member;
 
 INSERT INTO member (
   name
-, furigana
+, yomigana
 , division
 , floor
 , extensionnumber
