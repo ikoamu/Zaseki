@@ -31,3 +31,9 @@ dependencies {
 	runtime('org.postgresql:postgresql')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+task stage {
+  dependsOn build
+}
+
+defaultTasks "clean", "build"
