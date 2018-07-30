@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ZasekiController {
 
   @Autowired
-  MemberRepository repository;
+  MemberRepository memberRepository;
 
   @RequestMapping("/")
   @ResponseBody
@@ -40,22 +40,22 @@ public class ZasekiController {
 
   @PostMapping(value = "member", consumes = MediaType.APPLICATION_JSON_VALUE)
   public void postMember(@RequestBody Member member) {
-    repository.save(member);
+    memberRepository.save(member);
   }
   
   @DeleteMapping(value = "member")
   public void deleteMember(@RequestParam Integer id) {
-    repository.deleteById(id);
+    memberRepository.deleteById(id);
   }
   
   @PutMapping(value = "member", consumes = MediaType.APPLICATION_JSON_VALUE)
   public void updateMember(@RequestParam Integer id, @RequestBody Member member) {
     member.setId(id);
-    repository.save(member);
+    memberRepository.save(member);
   }
 
   private List<Member> findAllMembers() {
-    return repository.findAll();
+    return memberRepository.findAll();
   }
 
   private List<Member> findQualifiedMembers(String furigana, String div) {
