@@ -21,8 +21,8 @@ public class Member {
   @Column(name = "name")
   private String name;
 
-  @Column(name = "furigana")
-  private String furigana;
+  @Column(name = "yomigana")
+  private String yomigana;
 
   @Column(name = "division")
   private String division;
@@ -37,11 +37,11 @@ public class Member {
     super();
   }
 
-  public Member(Integer id, String name, String furigana, String division, String floor, String extensionNumber) {
+  public Member(Integer id, String name, String yomigana, String division, String floor, String extensionNumber) {
     super();
     this.id = id;
     this.name = name;
-    this.furigana = furigana;
+    this.yomigana = yomigana;
     this.division = division;
     this.floor = floor;
     this.extensionNumber = extensionNumber;
@@ -63,12 +63,12 @@ public class Member {
     this.name = name;
   }
 
-  public String getFurigana() {
-    return furigana;
+  public String getYomigana() {
+    return yomigana;
   }
 
-  public void setFurigana(String furigana) {
-    this.furigana = furigana;
+  public void setFurigana(String yomigana) {
+    this.yomigana = yomigana;
   }
 
   public String getDivision() {
@@ -95,8 +95,8 @@ public class Member {
     this.extensionNumber = extensionNumber;
   }
 
-  public boolean furiganaIs(String furigana) {
-    return this.furigana.equals(furigana);
+  public boolean furiganaIs(String yomigana) {
+    return this.yomigana.equals(yomigana);
   }
 
   public boolean divisionIs(String div) {
