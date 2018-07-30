@@ -56,7 +56,7 @@ public class ZasekiControllerTests {
   }
 
   @Test
-  public void memberにパラメータfuriganaをつけてGETリクエストすると該当するMemberのリストと200OKが返される() throws Exception {
+  public void memberにパラメータyomiganaをつけてGETリクエストすると該当するMemberのリストと200OKが返される() throws Exception {
     List<Member> memberList = new ArrayList<Member>();
     Member member1 = new Member(1, "name1", "yomigana1", "division1", "floor1", "extensionNumber1"); //検索で該当しないメンバ
     Member member2 = new Member(2, "name2", "yomigana2", "division2", "floor2", "extensionNumber2"); //該当するメンバ
@@ -64,7 +64,7 @@ public class ZasekiControllerTests {
     memberList.add(member2);
     
     when(repository.findAll()).thenReturn(memberList);
-    mvc.perform(get("/member").param("furigana", "furigana2")).andExpect(status().isOk())
+    mvc.perform(get("/member").param("yomigana", "yomigana2")).andExpect(status().isOk())
         .andExpect(jsonPath("$").isArray())
         .andExpect(jsonPath("$",hasSize(1)))
         .andExpect(jsonPath("$[0].id").value(member2.getId()))
@@ -100,7 +100,7 @@ public class ZasekiControllerTests {
   }
 
   @Test
-  public void memberにfuriganaとdivをつけてGETリクエストすると該当するMemberのリストと200OKが返される() throws Exception {
+  public void memberにyomiganaとdivをつけてGETリクエストすると該当するMemberのリストと200OKが返される() throws Exception {
     List<Member> memberList = new ArrayList<Member>();
     Member member1 = new Member(1, "name1", "yomigana1", "ETEC", "floor1", "extensionNumber1"); //検索で該当しないメンバ
     Member member2 = new Member(2, "name2", "yomigana1", "ITS", "floor2", "extensionNumber2"); //該当するメンバ
