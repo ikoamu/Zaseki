@@ -39,7 +39,7 @@ public class ZasekiControllerTests {
   @Test
   public void memberにGETリクエストすると200OKとMemberのリストが返される() throws Exception {
     List<Member> memberList = new ArrayList<Member>();
-    Member member = new Member(1, "name", "furigana", "division", "floor", "extensionNumber");
+    Member member = new Member(1, "name", "yomigana", "division", "floor", "extensionNumber");
     memberList.add(member);
 
     when(repository.findAll()).thenReturn(memberList);
@@ -47,7 +47,7 @@ public class ZasekiControllerTests {
         .andExpect(jsonPath("$").isArray())
         .andExpect(jsonPath("$[0].id").value(member.getId()))
         .andExpect(jsonPath("$[0].name").value(member.getName()))
-        .andExpect(jsonPath("$[0].furigana").value(member.getFurigana()))
+        .andExpect(jsonPath("$[0].yomigana").value(member.getYomigana()))
         .andExpect(jsonPath("$[0].division").value(member.getDivision()))
         .andExpect(jsonPath("$[0].floor").value(member.getFloor()))
         .andExpect(jsonPath("$[0].extensionNumber").value(member.getExtensionNumber()));
@@ -58,8 +58,8 @@ public class ZasekiControllerTests {
   @Test
   public void memberにパラメータfuriganaをつけてGETリクエストすると該当するMemberのリストと200OKが返される() throws Exception {
     List<Member> memberList = new ArrayList<Member>();
-    Member member1 = new Member(1, "name1", "furigana1", "division1", "floor1", "extensionNumber1"); //検索で該当しないメンバ
-    Member member2 = new Member(2, "name2", "furigana2", "division2", "floor2", "extensionNumber2"); //該当するメンバ
+    Member member1 = new Member(1, "name1", "yomigana1", "division1", "floor1", "extensionNumber1"); //検索で該当しないメンバ
+    Member member2 = new Member(2, "name2", "yomigana2", "division2", "floor2", "extensionNumber2"); //該当するメンバ
     memberList.add(member1);
     memberList.add(member2);
     
@@ -69,7 +69,7 @@ public class ZasekiControllerTests {
         .andExpect(jsonPath("$",hasSize(1)))
         .andExpect(jsonPath("$[0].id").value(member2.getId()))
         .andExpect(jsonPath("$[0].name").value(member2.getName()))
-        .andExpect(jsonPath("$[0].furigana").value(member2.getFurigana()))
+        .andExpect(jsonPath("$[0].yomigana").value(member2.getYomigana()))
         .andExpect(jsonPath("$[0].division").value(member2.getDivision()))
         .andExpect(jsonPath("$[0].floor").value(member2.getFloor()))
         .andExpect(jsonPath("$[0].extensionNumber").value(member2.getExtensionNumber()));
@@ -80,8 +80,8 @@ public class ZasekiControllerTests {
   @Test
   public void memberにパラメータdivをつけてGETリクエストすると該当するMemberのリストと200OKが返される() throws Exception {
     List<Member> memberList = new ArrayList<Member>();
-    Member member1 = new Member(1, "name1", "furigana1", "ETEC", "floor1", "extensionNumber1"); //検索で該当しないメンバ
-    Member member2 = new Member(2, "name2", "furigana2", "ITS", "floor2", "extensionNumber2"); //該当するメンバ
+    Member member1 = new Member(1, "name1", "yomigana1", "ETEC", "floor1", "extensionNumber1"); //検索で該当しないメンバ
+    Member member2 = new Member(2, "name2", "yomigana2", "ITS", "floor2", "extensionNumber2"); //該当するメンバ
     memberList.add(member1);
     memberList.add(member2);
     
@@ -91,7 +91,7 @@ public class ZasekiControllerTests {
         .andExpect(jsonPath("$",hasSize(1)))
         .andExpect(jsonPath("$[0].id").value(member2.getId()))
         .andExpect(jsonPath("$[0].name").value(member2.getName()))
-        .andExpect(jsonPath("$[0].furigana").value(member2.getFurigana()))
+        .andExpect(jsonPath("$[0].yomigana").value(member2.getYomigana()))
         .andExpect(jsonPath("$[0].division").value(member2.getDivision()))
         .andExpect(jsonPath("$[0].floor").value(member2.getFloor()))
         .andExpect(jsonPath("$[0].extensionNumber").value(member2.getExtensionNumber()));
@@ -102,21 +102,21 @@ public class ZasekiControllerTests {
   @Test
   public void memberにfuriganaとdivをつけてGETリクエストすると該当するMemberのリストと200OKが返される() throws Exception {
     List<Member> memberList = new ArrayList<Member>();
-    Member member1 = new Member(1, "name1", "furigana1", "ETEC", "floor1", "extensionNumber1"); //検索で該当しないメンバ
-    Member member2 = new Member(2, "name2", "furigana1", "ITS", "floor2", "extensionNumber2"); //該当するメンバ
-    Member member3 = new Member(1, "name1", "furigana2", "ITS", "floor3", "extensionNumber3"); //該当しないメンバ
+    Member member1 = new Member(1, "name1", "yomigana1", "ETEC", "floor1", "extensionNumber1"); //検索で該当しないメンバ
+    Member member2 = new Member(2, "name2", "yomigana1", "ITS", "floor2", "extensionNumber2"); //該当するメンバ
+    Member member3 = new Member(1, "name1", "yomigana2", "ITS", "floor3", "extensionNumber3"); //該当しないメンバ
     memberList.add(member1);
     memberList.add(member2);
     memberList.add(member3);
     
     when(repository.findAll()).thenReturn(memberList);
-    mvc.perform(get("/member").param("furigana", "furigana1").param("div", "its"))
+    mvc.perform(get("/member").param("yomigana", "yomigana1").param("div", "its"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").isArray())
         .andExpect(jsonPath("$",hasSize(1)))
         .andExpect(jsonPath("$[0].id").value(member2.getId()))
         .andExpect(jsonPath("$[0].name").value(member2.getName()))
-        .andExpect(jsonPath("$[0].furigana").value(member2.getFurigana()))
+        .andExpect(jsonPath("$[0].yomigana").value(member2.getYomigana()))
         .andExpect(jsonPath("$[0].division").value(member2.getDivision()))
         .andExpect(jsonPath("$[0].floor").value(member2.getFloor()))
         .andExpect(jsonPath("$[0].extensionNumber").value(member2.getExtensionNumber()));
@@ -135,7 +135,7 @@ public class ZasekiControllerTests {
   
   @Test
   public void POSTリクエストすると200OKが返される() throws Exception {   
-    Member member = new Member(1, "name", "furigana", "division", "floor", "extensionNumber");
+    Member member = new Member(1, "name", "yomigana", "division", "floor", "extensionNumber");
     
     when(repository.save(member)).thenReturn(member);
     mvc.perform(post("/member").contentType(MediaType.APPLICATION_JSON)
