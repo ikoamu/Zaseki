@@ -146,7 +146,7 @@ DELETE FROM member;
 
 INSERT INTO member (
   name
-, furigana
+, yomigana
 , division_id
 , floor
 , extensionnumber

@@ -33,10 +33,10 @@ public class Member {
   @Setter
   private String name;
 
-  @Column(name = "furigana")
+  @Column(name = "yomigana")
   @Getter
   @Setter
-  private String furigana;
+  private String yomigana;
 
   @Column(name = "division_id")
   @Getter
@@ -53,8 +53,8 @@ public class Member {
   @Setter
   private String extensionNumber;
 
-  public boolean furiganaIs(String furigana) {
-    return this.furigana.equals(furigana);
+  public boolean yomiganaIs(String yomigana) {
+    return this.yomigana.equals(yomigana);
   }
 
   public boolean divisionIs(String div, List<Division> divList) {

@@ -33,10 +33,10 @@ public class ZasekiController {
   }
 
   @GetMapping(value = "member")
-  public List<Member> member(@RequestParam(required = false) String furigana,
+  public List<Member> member(@RequestParam(required = false) String yomigana,
       @RequestParam(required = false) String div) {
 
-    List<Member> qualifiedMemberList = findQualifiedMembers(furigana, div);
+    List<Member> qualifiedMemberList = findQualifiedMembers(yomigana, div);
 
     return qualifiedMemberList;
   }
@@ -65,11 +65,11 @@ public class ZasekiController {
     return divisionRepository.findAll();
   }
 
-  private List<Member> findQualifiedMembers(String furigana, String div) {
+  private List<Member> findQualifiedMembers(String yomigana, String div) {
     List<Division> divisionList = findAllDivisions();
 
     return findAllMembers().stream()
-        .filter(m -> furigana == null || m.furiganaIs(furigana))
+        .filter(m -> yomigana == null || m.yomiganaIs(yomigana))
         .filter(m -> div == null || m.divisionIs(div, divisionList))
         .collect(Collectors.toList());
   }
