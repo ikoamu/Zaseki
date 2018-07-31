@@ -146,6 +146,7 @@ public class ZasekiControllerTests {
         .andExpect(status().isOk());
     
     verify(repository, times(1)).save(member);
+  }
 
   @Test
   public void POSTリクエストすると200OKが返される() throws Exception {   
