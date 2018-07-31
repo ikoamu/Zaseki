@@ -1,5 +1,7 @@
 package com.zaseki;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,4 +37,14 @@ public class Division {
   @Getter
   @Setter
   private String div;
+
+  public static int getIdFromDiv(String div, List<Division> divList) {
+    for (Division d : divList) {
+      if (d.getDiv().equals(div)) {
+        return d.getId();
+      }
+    }
+
+    return 999;
+  }
 }

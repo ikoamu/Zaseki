@@ -21,6 +21,9 @@ public class ZasekiController {
   @Autowired
   MemberRepository memberRepository;
 
+  @Autowired
+  DivisionRepository divisionRepository;
+
   @RequestMapping("/")
   @ResponseBody
   public List<Member> home() {
@@ -42,12 +45,12 @@ public class ZasekiController {
   public void postMember(@RequestBody Member member) {
     memberRepository.save(member);
   }
-  
+
   @DeleteMapping(value = "member")
   public void deleteMember(@RequestParam Integer id) {
     memberRepository.deleteById(id);
   }
-  
+
   @PutMapping(value = "member", consumes = MediaType.APPLICATION_JSON_VALUE)
   public void updateMember(@RequestParam Integer id, @RequestBody Member member) {
     member.setId(id);
@@ -58,10 +61,16 @@ public class ZasekiController {
     return memberRepository.findAll();
   }
 
+  private List<Division> findAllDivisions() {
+    return divisionRepository.findAll();
+  }
+
   private List<Member> findQualifiedMembers(String furigana, String div) {
+    List<Division> divisionList = findAllDivisions();
+
     return findAllMembers().stream()
         .filter(m -> furigana == null || m.furiganaIs(furigana))
-        .filter(m -> div == null || m.divisionIs(div))
+        .filter(m -> div == null || m.divisionIs(div, divisionList))
         .collect(Collectors.toList());
   }
 }
