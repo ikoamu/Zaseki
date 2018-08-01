@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class ZasekiController {
 
   @Autowired
-  MemberRepository repository;
+  MemberRepository memberRepository;
+
+  @Autowired
+  DivisionRepository divisionRepository;
 
   @RequestMapping("/")
   @ResponseBody
@@ -40,28 +43,34 @@ public class ZasekiController {
 
   @PostMapping(value = "member", consumes = MediaType.APPLICATION_JSON_VALUE)
   public void postMember(@RequestBody Member member) {
-    repository.save(member);
+    memberRepository.save(member);
   }
-  
+
   @DeleteMapping(value = "member")
   public void deleteMember(@RequestParam Integer id) {
-    repository.deleteById(id);
+    memberRepository.deleteById(id);
   }
-  
+
   @PutMapping(value = "member", consumes = MediaType.APPLICATION_JSON_VALUE)
   public void updateMember(@RequestParam Integer id, @RequestBody Member member) {
     member.setId(id);
-    repository.save(member);
+    memberRepository.save(member);
   }
 
   private List<Member> findAllMembers() {
-    return repository.findAll();
+    return memberRepository.findAll();
+  }
+
+  private List<Division> findAllDivisions() {
+    return divisionRepository.findAll();
   }
 
   private List<Member> findQualifiedMembers(String yomigana, String div) {
+    List<Division> divisionList = findAllDivisions();
+
     return findAllMembers().stream()
-        .filter(m -> yomigana == null || m.furiganaIs(yomigana))
-        .filter(m -> div == null || m.divisionIs(div))
+        .filter(m -> yomigana == null || m.yomiganaIs(yomigana))
+        .filter(m -> div == null || m.divisionIs(div, divisionList))
         .collect(Collectors.toList());
   }
 }

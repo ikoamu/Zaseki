@@ -1,22 +1,50 @@
 package com.zaseki;
 
-enum Division {
-  ITS("its"), ETEC("etec"), 金融("fin"), 管理部("adm"), 医療("med"), 未来企画室("fpo"), アジャイル("ag");
+import java.util.List;
 
-  final String keyWord;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-  private Division(final String keyWord) {
-    this.keyWord = keyWord;
-  }
-  
-  protected static Division from(String string) {
-    for (Division division : Division.values()) {
-      if (string.equals(division.keyWord)) {
-        return division;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Table(name = "division")
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+public class Division {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Getter
+  @Setter
+  private int id;
+
+  @Column(name = "name")
+  @Getter
+  @Setter
+  private String name;
+
+  @Column(name = "div")
+  @Getter
+  @Setter
+  private String div;
+
+  public static int getIdFromDiv(String div, List<Division> divList) {
+    for (Division d : divList) {
+      if (d.getDiv().equals(div)) {
+        return d.getId();
       }
     }
 
-    return null;
+    return 999;
   }
 }
-
