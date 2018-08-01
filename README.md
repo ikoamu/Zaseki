@@ -44,6 +44,18 @@ Eclipseマーケットプレイスで`Buildship`を検索、インストール
 * よみがなと部署を指定
   * GET `/member?yomigana={yomigana}&div={div}`
 
+* レスポンスボディ:
+  ```
+  {
+    "id": "0"
+  , "name": "hoge　fuga"
+  , "yomigana": "hoge"
+  , "division": "division"
+  , "floor": "floor"
+  , "extensionNumber": "0000"
+  }
+  ```
+
 #### データ追加
 * POST `/member`
   * リクエストボディ:
