@@ -1,64 +1,43 @@
 package com.zaseki;
 
-import java.util.List;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
 @Table(name = "member")
-@EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class Member {
-
+  
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Getter
-  @Setter
   private int id;
-
-  @Column(name = "name")
-  @Getter
-  @Setter
+  
   private String name;
-
-  @Column(name = "yomigana")
-  @Getter
-  @Setter
+  
   private String yomigana;
-
-  @Column(name = "division_id")
-  @Getter
-  @Setter
-  private int divisionId;
-
-  @Column(name = "floor")
-  @Getter
-  @Setter
+  
+  private int division_id;
+  
+  @ManyToOne
+  @JoinColumn(name="division_id",referencedColumnName="id", insertable=false, updatable=false)
+  private Division division;
+  
   private String floor;
-
-  @Column(name = "extensionnumber")
-  @Getter
-  @Setter
-  private String extensionNumber;
-
+  
+  private String extensionnumber;
+  
   public boolean yomiganaIs(String yomigana) {
     return this.yomigana.equals(yomigana);
   }
-
-  public boolean divisionIs(String div, List<Division> divList) {
-    return this.divisionId == Division.getIdFromDiv(div, divList);
+  
+  public boolean divisionIs(String div) {
+    return this.division.getDiv().equals(div);
   }
-
 }

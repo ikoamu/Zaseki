@@ -61,16 +61,11 @@ public class ZasekiController {
     return memberRepository.findAll();
   }
 
-  private List<Division> findAllDivisions() {
-    return divisionRepository.findAll();
-  }
-
   private List<Member> findQualifiedMembers(String yomigana, String div) {
-    List<Division> divisionList = findAllDivisions();
-
+    
     return findAllMembers().stream()
         .filter(m -> yomigana == null || m.yomiganaIs(yomigana))
-        .filter(m -> div == null || m.divisionIs(div, divisionList))
+        .filter(m -> div == null || m.divisionIs(div))
         .collect(Collectors.toList());
   }
 }
