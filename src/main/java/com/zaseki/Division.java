@@ -1,22 +1,27 @@
 package com.zaseki;
 
-enum Division {
-  ITS("its"), ETEC("etec"), 金融("fin"), 管理部("adm"), 医療("med"), 未来企画室("fpo"), アジャイル("ag");
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-  final String keyWord;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-  private Division(final String keyWord) {
-    this.keyWord = keyWord;
-  }
+@Entity
+@Table(name = "division")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data 
+public class Division {
   
-  protected static Division from(String string) {
-    for (Division division : Division.values()) {
-      if (string.equals(division.keyWord)) {
-        return division;
-      }
-    }
-
-    return null;
-  }
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
+  
+  private String name;
+  
+  private String div;
 }
-
